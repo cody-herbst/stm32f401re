@@ -1,8 +1,11 @@
 Simple blinking project. 
 
-Source code from here http://regalis.com.pl/en/arm-cortex-stm32-gnulinux/
+most of the source code is from from here http://regalis.com.pl/en/arm-cortex-stm32-gnulinux/
 
-to run type:
+to flash:
+	make flash
 
-make flash
+to build:
+	make build
+
 

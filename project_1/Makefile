@@ -33,7 +33,7 @@ UTIL_FLAGS := -Oihex
 ###############################################################################################################################
 # builds all of the necessary files
 
-build: $(BINDIR)/main.hex
+build: $(BINDIR)/ $(BINDIR)/main.hex
 
 $(BINDIR)/main.hex: $(BINDIR)/main.elf
 	arm-none-eabi-$(UTIL) $(UTIL_FLAGS) $< $@
@@ -44,6 +44,9 @@ $(BINDIR)/main.elf: $(OBJ_FILES)
 
 $(BINDIR)/%.o: $(SRCDIR)/%.c
 	arm-none-eabi-$(CC) $(CC_FLAGS) -c $< -o $@
+
+$(BINDIR)/:
+	mkdir $(BINDIR)/
 
 ################################################################################################################################
 # cleans the project
@@ -56,8 +59,8 @@ clean:
 ################################################################################################################################
 # openocd commands
 
-flash: build
+flash: $(BINDIR)/ build
 	openocd -f $(OPENOCD_CONFIG_FILE) -l $(OPENOCD_LOG) -c "init" -c "reset halt" -c "flash write_image erase $(BINDIR)/main.hex" -c "reset run" -c "exit"
 
-debug: build
+debug: $(BINDIR)/ build
 	openocd -f $(OPENOCD_CONFIG_FILE) -l $(OPENOCD_LOG)
