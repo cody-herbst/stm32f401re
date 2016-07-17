@@ -5,6 +5,7 @@
 #define LED_TOGGLE() GPIOA->ODR ^= 0x0030;
  
 int main() {
+
 	/* Enbale GPIOA clock */
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 

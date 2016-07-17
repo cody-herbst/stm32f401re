@@ -1,0 +1,16 @@
+really simple push button circuit. A push button is hooked up to 5v power, and loops back to the development board to be
+received as input (PORT C PIN 8) when the button in pushed. Once the input is received, a signal is driven (PORT C PIN 6) to light up an led.
+
+A picture of the circuit can be found in project_2/misc (I'm still new to this so forgive me for just using pictures. Eventually Ill use a proper circuit design 
+utility)
+
+The purpose of this project is just a real quick test of gpio. This project doesn't include interrupts, but that will probably come
+in the next project.
+
+to flash:
+	make flash
+
+to build:
+	make build
+
+
