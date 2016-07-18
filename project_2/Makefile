@@ -33,17 +33,22 @@ UTIL_FLAGS := -Oihex
 ###############################################################################################################################
 # builds all of the necessary files
 
+.PRECIOUS: $(BINDIR)/%.o $(BINDIR)/%.s
+
 build: $(BINDIR)/ $(BINDIR)/main.hex
 
 $(BINDIR)/main.hex: $(BINDIR)/main.elf
 	arm-none-eabi-$(UTIL) $(UTIL_FLAGS) $< $@
 
-$(BINDIR)/main.elf: $(OBJ_FILES) 
+$(BINDIR)/main.elf: $(OBJ_FILES)
 	arm-none-eabi-$(CC) $(CC_FLAGS) -c $(ASMB)/startup_stm32f401xe.s -o $(BINDIR)/startup.o
 	arm-none-eabi-$(CC) $(LD_FLAGS) $^ $(BINDIR)/startup.o -o $@ 
 
-$(BINDIR)/%.o: $(SRCDIR)/%.c
+$(BINDIR)/%.o: $(BINDIR)/%.s
 	arm-none-eabi-$(CC) $(CC_FLAGS) -c $< -o $@
+
+$(BINDIR)/%.s: $(SRCDIR)/%.c
+	arm-none-eabi-$(CC) $(CC_FLAGS) -S $< -o $@
 
 $(BINDIR)/:
 	mkdir $(BINDIR)/
